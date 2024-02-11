@@ -1,18 +1,22 @@
-.appvide{
-  display: flex;
-  align-items: center;
-}
-
-.appcanvas{
-  position: absolute;
-  top: 100px
-}
-
-.myapp{
+.myapp {
   display: flex;
   width: 100vw;
   height: 100vh;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  position: relative; /* Add position: relative to the .myapp container */
+}
+
+.appcanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1; /* Set a higher z-index to make sure it's above appvide */
+}
+
+.appvide {
+  display: flex;
+  align-items: center;
+  z-index: 0; /* Set a lower z-index to keep it below appcanvas */
 }
