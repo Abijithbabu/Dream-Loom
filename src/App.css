@@ -1,22 +1,21 @@
 .myapp {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  position: relative; /* Add position: relative to the .myapp container */
+  text-align: center;
+  position: relative;
+  background-color: rgb(27, 43, 43);
+}
+
+.appvideo {
+  padding: 10px;
+  background-color: rgb(27, 43, 43); 
+  position: absolute;
+  z-index: 10 ;
 }
 
 .appcanvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1; /* Set a higher z-index to make sure it's above appvide */
-}
-
-.appvide {
-  display: flex;
-  align-items: center;
-  z-index: 0; /* Set a lower z-index to keep it below appcanvas */
+  padding: 10px; 
+  z-index: 100;
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
 }
