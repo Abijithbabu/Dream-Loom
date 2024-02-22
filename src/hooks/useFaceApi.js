@@ -48,13 +48,13 @@ const useFaceApi = (videoRef, canvasRef) => {
             // DRAW YOU FACE IN WEBCAM
             canvasRef.current.innerHtml = faceapi.createCanvasFromMedia(videoRef.current)
             faceapi.matchDimensions(canvasRef.current, {
-                width: 640,
-                height: 480
+                width: videoRef.current.width,
+                height: videoRef.current.height
             })
 
             const resized = faceapi.resizeResults(detections, {
-                width: 640,
-                height: 480
+                width: videoRef.current.width,
+                height: videoRef.current.height
             })
 
             faceapi.draw.drawDetections(canvasRef.current, resized)
