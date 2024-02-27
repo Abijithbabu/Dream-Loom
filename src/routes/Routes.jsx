@@ -7,6 +7,7 @@ import Login from '../components/Login'
 import AuthLayout from '../components/AuthLayout'
 import Register from '../components/Register'
 import Settings from '../components/Settings'
+import ChildProfile from '../components/ChildDetails'
 
 const Router = () => {
   return (
@@ -22,6 +23,7 @@ const Router = () => {
       </Route>
       <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
       <Route path="/register" element={<AuthLayout><Register /></AuthLayout>} />
+      <Route path="/set-child-profile" element={<AuthLayout><ChildProfile /></AuthLayout>} />
     </Routes>
   )
 }
