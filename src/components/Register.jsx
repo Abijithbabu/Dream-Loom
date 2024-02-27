@@ -21,26 +21,27 @@ const INITIAL_FORM_STATE = {
 // Form validation schema using Yup
 const FORM_VALIDATION = Yup.object().shape({
   name: Yup.string()
-    .required("Required")
-    .min(5, "Name must be at least 5 characters"),
-  email: Yup.string().email("Invalid email").required("Required"),
+    .required("Username is Required")
+    .min(3, "Name must have atleast 3 characters"),
+  email: Yup.string().email("Invalid email").required("Email is Required"),
   password: Yup.string()
-    .required("Required")
+    .required("Password is Required")
     .min(8, "Password must be at least 8 characters")
     .matches(
-      /^(?=.*[0-9])(?=.*[!@#$%^&*])/,
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/,
       "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
     ),
+
 });
 
 const Register = () => {
   const navigate = useNavigate();
-const isLoading = false
+  const isLoading = false
   // Submit Handler for Registration
   const submitHandler = async (values) => {
     try {
       console.log(values)
-      navigate("/register-otp");
+      navigate("/set-child-profile");
     } catch (err) {
       console.log(err?.data?.message || err.error);
     }
@@ -68,7 +69,7 @@ const isLoading = false
                   label="Password"
                 />
               </Grid>
-              <Grid item xs={12} sx={{ ml: "3em", mr: "3em",mt:'1rem' }}>
+              <Grid item xs={12} sx={{ ml: "3em", mr: "3em", mt: '1rem' }}>
                 {isLoading ? (
                   <CircularProgress size={20} />
                 ) : (

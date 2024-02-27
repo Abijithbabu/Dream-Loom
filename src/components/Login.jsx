@@ -26,9 +26,10 @@ const FORM_VALIDATION = Yup.object().shape({
     .required("Password is Required")
     .min(8, "Password must be at least 8 characters")
     .matches(
-      /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*])/,
-      "Password must contain at least one special character"
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/,
+      "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
     ),
+
 });
 const Login = () => {
   const navigate = useNavigate();

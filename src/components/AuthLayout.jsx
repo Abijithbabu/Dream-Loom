@@ -1,21 +1,18 @@
-import { Routes, Route, useLocation } from "react-router-dom";
-import { useMemo } from "react";
+import { useLocation } from "react-router-dom";
 import {
-   Avatar,
    Box,
    Grid,
    Typography,
    useMediaQuery,
    useTheme,
 } from "@mui/material";
-
-
-import VideogameAssetOutlinedIcon from "@mui/icons-material/VideogameAssetOutlined";
 import bgVideo from "../assets/video1.mp4"
-// import avatar from "../../../../assets/user/login/logo.jpg";
 
 const AuthLayout = ({ children }) => {
 
+   // Access the current pathname
+   const { pathname } = useLocation();
+   const formattedPathname = pathname.replace('/', '').charAt(0).toUpperCase() + pathname.slice(2)
 
    // Access breakpoints from MUI theme
    const { breakpoints } = useTheme();
@@ -72,7 +69,7 @@ const AuthLayout = ({ children }) => {
                         <Box sx={{ display: "flex", justifyContent: "center" }}>
                            <Box>
                               <Typography component="h1" variant="h4">
-                                 Login
+                                 {formattedPathname === 'Set-child-profile' ? "Set Child Profile" : formattedPathname}
                               </Typography>
                            </Box>
                         </Box>
