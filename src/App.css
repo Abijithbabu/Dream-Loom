@@ -3,7 +3,9 @@
   position: relative;
   background-color: rgb(27, 43, 43);
 }
-
+body {
+  margin:0
+}
 .appvideo {
   padding: 10px;
   background-color: rgb(27, 43, 43); 
