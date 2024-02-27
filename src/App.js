@@ -1,11 +1,20 @@
-import logo from './logo.svg';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { HashRouter } from "react-router-dom";
+import Routes from './routes/Routes';
 import './App.css';
-import FaceDetection from './components/FaceDetection';
 
-function App() {
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
+export default function App() {
   return (
-    <FaceDetection/>
+    <ThemeProvider theme={darkTheme}>
+      <HashRouter>
+        <Routes />
+      </HashRouter>
+    </ThemeProvider>
   );
 }
-
-export default App;
