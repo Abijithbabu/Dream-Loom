@@ -4,7 +4,8 @@
   background-color: rgb(27, 43, 43);
 }
 body {
-  margin:0
+  margin:0;
+  overflow:'hidden'
 }
 .appvideo {
   padding: 10px;
