@@ -10,6 +10,7 @@ import Settings from '../components/Settings'
 import ChildProfile from '../components/ChildDetails'
 import Create from '../pages/Create'
 import Story from '../pages/Story'
+import VoiceSettings from '../components/VoiceSettings'
 
 const Router = () => {
   return (
@@ -27,7 +28,7 @@ const Router = () => {
         <Route path="/library" element={<Home />} />
         <Route path="/face-recognition" element={<FaceDetection />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/voice-settings" element={<Settings />} />
+        <Route path="/voice-settings" element={<VoiceSettings />} />
         <Route path="/profile" element={<Settings />} />
         <Route path="/recite" element={<Story />} />
       </Route>
