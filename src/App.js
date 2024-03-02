@@ -1,5 +1,7 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { HashRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 import Routes from './routes/Routes';
 import './App.css';
 
@@ -7,7 +9,7 @@ const theme = createTheme({
   palette: {
     mode: 'dark',
   },
-   typography: {
+  typography: {
     fontFamily: [
       '-apple-system',
       'BlinkMacSystemFont',
@@ -26,9 +28,11 @@ const theme = createTheme({
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
-      <HashRouter>
-        <Routes />
-      </HashRouter>
+      <Provider store={store}>
+        <HashRouter>
+          <Routes />
+        </HashRouter>
+      </Provider>
     </ThemeProvider>
   );
 }
