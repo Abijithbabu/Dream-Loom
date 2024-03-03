@@ -49,10 +49,10 @@ const Story = () => {
                   theme.palette.mode === 'light'
                      ? `0 0 12px 8px ${alpha('#9CCCFC', 0.2)}`
                      : `0 0 24px 12px ${alpha('#033363', 0.2)}`,
-                     backdropFilter: "blur(3px)"
+                     backdropFilter: "blur(8px)"
             })}
          >
-            <Container sx={{ p: 3 }}>
+            <Container sx={{ p: 3 ,overflow:'scroll',height:'70vh'}}>
                <ReactTyped sx={{ p: 5 }} showCursor={false} stopped={true} typedRef={setTyped} strings={[splitIntoParagraphs(story)]} typeSpeed={40} />
             </Container>
          </Box>

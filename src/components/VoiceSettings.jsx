@@ -1,79 +1,95 @@
 import React from 'react'
 import useTextToSpeech from '../hooks/useTestToSpeech'
-import { Button, Container } from '@mui/material'
+import { Box, Button, Container, Grid, Typography } from '@mui/material'
 
 const VoiceSettings = () => {
     const [handlePlay, isPaused, handlePause, handleStop, voice, handleVoiceChange, pitch, handlePitchChange, rate, handleRateChange, volume, handleVolumeChange, updateSettings] = useTextToSpeech(' Once upon a time....')
 
     return (
         <Container
-        sx={{
-           display: 'flex',
-           flexDirection: 'column',
-           alignItems: 'center',
-           pt: 13,
-           borderRadius:'10px'
-           
-        }}>
-            <div>
-                <label>
-                    Voice:
-                    <select value={voice} onChange={handleVoiceChange}>
-                        {window.speechSynthesis.getVoices().map((voice,index) => (
-                            <option key={voice.name} value={index}>
-                                {voice.name}
-                            </option>
-                        ))}
-                    </select>
-                </label>
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                pt: 13,
+                borderRadius: '10px',
+            }}>
+            <Box variant="outlined" sx={{ backdropFilter: 'blur(15px)',p:3, borderRadius:'20px',borderColor:'#' ,borderStyle:'double'}}> 
+                <table>
+                    <tr>
+                        <td><Typography p={1}>Voice :</Typography></td>
+                        <td><select value={voice} onChange={handleVoiceChange}>
+                            {window.speechSynthesis.getVoices().map((voice, index) => (
+                                <option key={voice.name} value={index}>
+                                    {voice.name}
+                                </option>
+                            ))}
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td><Typography p={1}>Pitch : </Typography></td>
+                        <td><label><input
+                            type="range"
+                            min="0.5"
+                            max="2"
+                            step="0.1"
+                            value={pitch}
+                            onChange={handlePitchChange}
+                        /></label></td>
+                    </tr>
+                    <tr>
+                        <Typography p={1}>Speed:</Typography>
+                        <td><Typography><input
+                            type="range"
+                            min="0.5"
+                            max="2"
+                            step="0.1"
+                            value={rate}
+                            onChange={handleRateChange}
+                        /></Typography></td> 
+                    </tr>
+                    <tr >
+                        <td><Typography p={1}>  Volume:</Typography ></td>
+                        <td><input
+                            type="range"
+                            min="0"
+                            max="1"
+                            step="0.1"
+                            value={volume}
+                            onChange={handleVolumeChange}
+                        /></td>
+                    </tr>
+                    <tr>
+                        <td><Typography></Typography></td>
+                        <td><Typography></Typography></td>
+                    </tr>
+                </table>
+                <Grid container spacing={2}>
+                    <Grid item xs={3}>
+                        <Box style={{ height: 50, textAlign: 'left', padding: 5 }}>
+                            <Button variant='contained' onClick={handlePlay}>{isPaused ? "Resume" : "Play"}</Button>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Box style={{ height: 50, textAlign: 'center', padding: 5 }}>
+                            <Button variant='contained' onClick={handlePause}>Stop</Button>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Box style={{ height: 50, textAlign: 'center', padding: 5 }}>
+                            <Button variant='contained' onClick={handleStop}>Stop</Button>
+                            </Box>
+                    </Grid>
+                    <Grid item xs={3}>
+                        <Box style={{ height: 50, textAlign: 'center', padding: 5 }}>
+                            <Button variant='contained' onClick={updateSettings}>Save</Button>
+                        </Box>
+                    </Grid>
+                </Grid>
 
-                <br />
 
-                <label>
-                    Pitch:
-                    <input
-                        type="range"
-                        min="0.5"
-                        max="2"
-                        step="0.1"
-                        value={pitch}
-                        onChange={handlePitchChange}
-                    />
-                </label>
 
-                <br />
-
-                <label>
-                    Speed:
-                    <input
-                        type="range"
-                        min="0.5"
-                        max="2"
-                        step="0.1"
-                        value={rate}
-                        onChange={handleRateChange}
-                    />
-                </label>
-                <br />
-                <label>
-                    Volume:
-                    <input
-                        type="range"
-                        min="0"
-                        max="1"
-                        step="0.1"
-                        value={volume}
-                        onChange={handleVolumeChange}
-                    />
-                </label>
-
-                <br />
-
-                <Button variant='contained' onClick={handlePlay}>{isPaused ? "Resume" : "Play"}</Button>
-                <Button variant='contained' onClick={handlePause}>Pause</Button>
-                <Button variant='contained' onClick={handleStop}>Stop</Button>
-                <Button variant='contained' onClick={updateSettings}>Save</Button>
-            </div>
+            </Box>
         </Container>
     )
 }

@@ -3,7 +3,7 @@ import * as faceapi from 'face-api.js'
 
 const useFaceApi = (videoRef, canvasRef) => {
 
-    const [detections, setDetections] = useState({})
+    const [detections, setDetections] = useState([])
 
     useEffect(() => {
         startVideo()
