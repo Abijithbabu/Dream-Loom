@@ -3,6 +3,15 @@
   position: relative;
   background-color: rgb(27, 43, 43);
 }
+::-webkit-scrollbar {
+  width: 0.3rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #1e201e39;
+  width: 0.1rem;
+  border-radius: 1rem;
+}
 body {
   margin:0;
   overflow:'hidden'

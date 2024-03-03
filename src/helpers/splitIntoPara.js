@@ -1,4 +1,5 @@
 export default function splitIntoParagraphs(inputString) {
+    
     const firstCommaIndex = inputString.indexOf(',');
 
     // Extract the title up to the first comma

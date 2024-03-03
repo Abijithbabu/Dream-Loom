@@ -20,7 +20,7 @@ export default function Settings() {
       } else {
          newChecked.splice(currentIndex, 1);
       }
-      setChecked(newChecked);
+      setChecked(newChecked); 
    };
    React.useEffect(() => {
       if (sm) navigate('/face-recognition')
@@ -33,10 +33,12 @@ export default function Settings() {
             flexDirection: 'column',
             alignItems: 'center',
             pt: 8,
+            borderRadius:'10px'
+            
          }}>
          <List
-            sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
-            subheader={<ListSubheader>Settings</ListSubheader>}
+            sx={{ width: '100%', maxWidth: 360,  backdropFilter: "blur(15px)",borderRadius:'15px'}}
+            subheader={<ListSubheader sx={{backgroundColor:'primary.main'}}> Settings</ListSubheader>}
          >
             <ListItemButton onClick={() => navigate('/face-recognition')}>
                <ListItemIcon>

@@ -8,12 +8,14 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
+import { useDispatch } from 'react-redux';
 // import AnimatedButton from '../components/btnStartNow';
 
 export default function Create() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [prompt, setPrompt] = React.useState('')
-  const { data, isLoading, error, fetchData } = useFetch('/chat/test', { prompt }, 'POST')
+  const { data, isLoading, error, fetchData } = useFetch('/chat/', { prompt }, 'POST')
   const handleChange = (e) => setPrompt(e.target.value)
   const handleSubmit = () => {
     if (prompt.length > 9) {
@@ -22,22 +24,11 @@ export default function Create() {
   }
   React.useEffect(() => {
     if (data) {
+      dispatch({ type: 'story', payload: data })
       navigate('/recite')
     }
   }, [data])
   return (
-    <Box
-      id="hero"
-      sx={(theme) => ({
-        width: '100%',
-        backgroundImage:
-          theme.palette.mode === 'light'
-            ? 'linear-gradient(180deg, #CEE5FD, #FFF)'
-            : 'linear-gradient(#02294F, #090E10)',
-        backgroundSize: '100% 20%',
-        backgroundRepeat: 'no-repeat',
-      })}
-    >
       <Container
         sx={{
           display: 'flex',
@@ -47,6 +38,7 @@ export default function Create() {
           pb: { xs: 8, sm: 12 },
           px: { xs: 5, sm: 0 },
         }}
+        boxShadow={0}
       >
         <Stack spacing={2} useFlexGap sx={{ width: { xs: '100%', sm: '70%' } }}>
           <Typography
@@ -84,6 +76,7 @@ export default function Create() {
             sx={{ pt: 2, width: { xs: '100%', sm: 'auto' } }}
           >
             <TextField
+            sx={{ backdropFilter: "blur(5px)",}} 
               id="outlined-basic"
               hiddenLabel
               size="small"
@@ -99,12 +92,12 @@ export default function Create() {
                 ariaLabel: 'Enter your thoughts',
               }}
             />
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
+            <Button variant="contained" color="secondary" onClick={handleSubmit}>
               Start now
             </Button>
             {/* <AnimatedButton/> */}
           </Stack>
-          <Typography variant="caption" textAlign="center" sx={{ opacity: 0.8 }}>
+          <Typography variant="caption" textAlign="center" sx={{ opacity: 0.8 , backdropFilter: "blur(3px)",}}>
             Describe your story with atleast 10 characters
           </Typography>
         </Stack>
@@ -117,6 +110,5 @@ export default function Create() {
           <CircularProgress color="inherit" />
         </Backdrop>
       </Container>
-    </Box>
   );
 }
