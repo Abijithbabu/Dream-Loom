@@ -4,6 +4,7 @@ const initialState = {
     isAuthenticated: true,
     user: null,
   },
+  story: null,
   speech: {
     voice: 0,
     pitch: 1,
@@ -27,6 +28,11 @@ export function Reducer(state = initialState, { type, payload }) {
         data: {
           isAuthenticated: false,
         }
+      };
+    case 'story':
+      return {
+        ...state,
+        story: payload
       };
     case 'speech':
       return {
