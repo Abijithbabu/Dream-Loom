@@ -3,7 +3,7 @@ import WebLayout from './WebLayout'
 import MobileLayout from './MobileLayout'
 import { Hidden } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-import bgVideo from "../assets/video1.mp4"
+import bgVideo from "../assets/video2.mp4"
 
 const Layout = () => {
    return (

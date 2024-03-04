@@ -13,7 +13,9 @@ export default function splitIntoParagraphs(inputString) {
 
     // If the title is not enclosed in quotes, find the first space to separate title and content
     if (!desc) {
-        const firstSpaceIndex = title.indexOf(',');
+        const nIndex = title.indexOf('\n')
+        const cIndex = title.indexOf(',')
+        const firstSpaceIndex = nIndex > cIndex ? cIndex : nIndex
         if (firstSpaceIndex !== -1) {
             desc = title.slice(firstSpaceIndex + 1).trim();
             title = title.slice(0, firstSpaceIndex);

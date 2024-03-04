@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import useFaceApi from '../hooks/useFaceApi'
-import { Box, Container, Typography, useMediaQuery } from '@mui/material'
+import { Backdrop, Box, CircularProgress, Container, Typography, useMediaQuery } from '@mui/material'
 
 const FaceDetection = () => {
   const videoRef = useRef()
@@ -46,10 +46,16 @@ const FaceDetection = () => {
           borderRadius: '20px',
           borderStyle: 'double'
         }}>
-          {detections?.map(x => <Typography>{`${x[0]} : ${x[1]}`}</Typography>)}
+          {detections && detections?.map(x => <Typography key={x[0]}>{`${x[0]} : ${x[1]}`}</Typography>)}
         </Box>
       </Container>
-
+      <Backdrop
+          sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={!detections.length}
+          onClick={() => { }}
+        >
+          Searching for face &nbsp;&nbsp;<CircularProgress color="inherit" />
+        </Backdrop>
     </>
   )
 }

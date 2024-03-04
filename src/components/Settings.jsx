@@ -5,22 +5,19 @@ import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import Switch from '@mui/material/Switch';
 import { ChevronRight, Face, GraphicEq, Logout, ManageAccounts } from '@mui/icons-material';
-import { Container, IconButton, ListItemButton, useMediaQuery } from '@mui/material';
+import { Container, IconButton, ListItem, ListItemButton, useMediaQuery } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Settings() {
-   const [checked, setChecked] = React.useState(['wifi']);
+   const detectface = useSelector(state => state?.faceRecognition)
+   const [checked, setChecked] = React.useState(detectface ?? true);
    const navigate = useNavigate()
+   const dispatch = useDispatch()
    const sm = useMediaQuery((theme) => theme.breakpoints.up('sm'));
-   const handleToggle = (value) => () => {
-      const currentIndex = checked.indexOf(value);
-      const newChecked = [...checked];
-      if (currentIndex === -1) {
-         newChecked.push(value);
-      } else {
-         newChecked.splice(currentIndex, 1);
-      }
-      setChecked(newChecked); 
+   const handleToggle = (event) => {
+      setChecked(event.target.checked);
+      dispatch({ type: 'face_recognition', payload: event.target.checked })
    };
    React.useEffect(() => {
       if (sm) navigate('/face-recognition')
@@ -32,60 +29,62 @@ export default function Settings() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            pt: 8,
-            borderRadius:'10px'
-            
+            pt: 13,
+            borderRadius: '10px'
          }}>
          <List
-            sx={{ width: '100%', maxWidth: 360,  backdropFilter: "blur(15px)",borderRadius:'15px'}}
-            subheader={<ListSubheader sx={{backgroundColor:'primary.main'}}> Settings</ListSubheader>}
+            sx={{ width: '100%', maxWidth: 400, backdropFilter: "blur(15px)", borderRadius: '15px', borderStyle: 'double' }}
+            subheader={<ListSubheader sx={{ backgroundColor: 'primary.main' }}> Settings</ListSubheader>}
          >
-            <ListItemButton onClick={() => navigate('/face-recognition')}>
-               <ListItemIcon>
-                  <Face />
-               </ListItemIcon>
-               <ListItemText id="switch-list-label-wifi" primary="Face Recognition" />
+            <ListItem>
+               <ListItemButton onClick={() => checked && navigate('/face-recognition')}>
+                  <ListItemIcon>
+                     <Face />
+                  </ListItemIcon>
+                  <ListItemText id="switch-list-label-emotion" primary="Face Recognition" />
+               </ListItemButton>
                <Switch
                   edge="end"
-                  onChange={handleToggle('wifi')}
-                  checked={checked.indexOf('wifi') !== -1}
+                  checked={checked}
+                  onChange={handleToggle}
                   inputProps={{
-                     'aria-labelledby': 'switch-list-label-wifi',
+                     'aria-labelledby': 'switch-list-label',
                   }}
                />
-            </ListItemButton>
-            <ListItemButton onClick={() => navigate('/voice-settings')}>
-               <ListItemIcon>
-                  <GraphicEq />
-               </ListItemIcon>
-               <ListItemText id="switch-list-label-bluetooth" primary="Voice Controls" />
-               <Switch
-                  edge="end"
-                  onChange={handleToggle('bluetooth')}
-                  checked={checked.indexOf('bluetooth') !== -1}
-                  inputProps={{
-                     'aria-labelledby': 'switch-list-label-bluetooth',
-                  }}
-               />
-            </ListItemButton>
-            <ListItemButton onClick={() => navigate('/profile')}
-               secondaryAction={
-                  <IconButton edge="end" aria-label="comments">
-                     <ChevronRight />
-                  </IconButton>
-               }
-            >
-               <ListItemIcon>
-                  <ManageAccounts />
-               </ListItemIcon>
-               <ListItemText id="switch-list-label-bluetooth" primary="Manage Accounts" />
-            </ListItemButton>
-            <ListItemButton onClick={() => navigate('/login')}>
-               <ListItemIcon>
-                  <Logout />
-               </ListItemIcon>
-               <ListItemText id="switch-list-label-bluetooth" primary="Logout" />
-            </ListItemButton>
+            </ListItem>
+            <ListItem onClick={() => navigate('/voice-settings')}>
+               <ListItemButton >
+                  <ListItemIcon>
+                     <GraphicEq />
+                  </ListItemIcon>
+                  <ListItemText id="switch-list-label-voice" primary="Voice Controls" />
+               </ListItemButton>
+               <IconButton aria-label="comments">
+                  <ChevronRight />
+               </IconButton>
+            </ListItem>
+            <ListItem onClick={() => navigate('/profile')}>
+               <ListItemButton>
+                  <ListItemIcon>
+                     <ManageAccounts />
+                  </ListItemIcon>
+                  <ListItemText id="switch-list-label-profile" primary="Manage Accounts" />
+               </ListItemButton>
+               <IconButton aria-label="comments">
+                  <ChevronRight />
+               </IconButton>
+            </ListItem>
+            <ListItem onClick={() => navigate('/login')}>
+               <ListItemButton>
+                  <ListItemIcon>
+                     <Logout />
+                  </ListItemIcon>
+                  <ListItemText id="switch-list-label-logout" primary="Logout" />
+               </ListItemButton>
+               <IconButton aria-label="comments">
+                  <ChevronRight />
+               </IconButton>
+            </ListItem>
          </List>
       </Container>
    );

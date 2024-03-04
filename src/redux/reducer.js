@@ -10,7 +10,8 @@ const initialState = {
     pitch: 1,
     rate: 1,
     volume: 1,
-  }
+  },
+  faceRecognition: true
 }
 
 export function Reducer(state = initialState, { type, payload }) {
@@ -43,6 +44,11 @@ export function Reducer(state = initialState, { type, payload }) {
           rate: payload?.rate,
           volume: payload?.volume,
         }
+      };
+    case 'face_recognition':
+      return {
+        ...state,
+        faceRecognition: payload
       };
     default:
       return state;

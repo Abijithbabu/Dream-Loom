@@ -54,7 +54,7 @@ export default function BottomAppBar({ children }) {
                      setValue(newValue);
                   }}
                >
-                  {navItems.map(x => <BottomNavigationAction label={x.name} icon={x.icon} />)}
+                  {navItems.map(x => <BottomNavigationAction key={x.name} label={x.name} icon={x.icon} />)}
                </BottomNavigation>
             </Paper>
          </Box>
