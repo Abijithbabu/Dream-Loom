@@ -5,12 +5,10 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Fab from '@mui/material/Fab';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import MenuIcon from '@mui/icons-material/Menu';
 import AddIcon from '@mui/icons-material/Add';
 import { Favorite, Home, Settings, ViewList } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
@@ -40,15 +38,12 @@ export default function BottomAppBar({ children }) {
             <CssBaseline />
             <AppBar position="fixed" >
                <Toolbar>
-                  <IconButton>
-                     <MenuIcon />
-                  </IconButton>
                   <Typography variant="h6" noWrap component="div">
                      DreamLoom
                   </Typography>
                </Toolbar>
             </AppBar>
-            <Box sx={{ flexGrow: 1, py: 8, px: 3 }}>
+            <Box sx={{ flexGrow: 1, py: 3 }}>
                {children}
             </Box>
             <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
@@ -59,7 +54,7 @@ export default function BottomAppBar({ children }) {
                      setValue(newValue);
                   }}
                >
-                  {navItems.map(x => <BottomNavigationAction label={x.name} icon={x.icon} />)}
+                  {navItems.map(x => <BottomNavigationAction key={x.name} label={x.name} icon={x.icon} />)}
                </BottomNavigation>
             </Paper>
          </Box>

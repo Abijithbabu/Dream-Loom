@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import {
    Box,
    Grid,
@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import bgVideo from "../assets/video1.mp4"
 
-const AuthLayout = ({ children }) => {
+const AuthLayout = () => {
 
    // Access the current pathname
    const { pathname } = useLocation();
@@ -74,7 +74,7 @@ const AuthLayout = ({ children }) => {
                            </Box>
                         </Box>
                         <Box height={35} />
-                        {children}
+                        <Outlet/>
                      </Box>
                   </Grid>
                </Grid>

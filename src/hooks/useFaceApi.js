@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react'
 import * as faceapi from 'face-api.js'
+import { useSelector } from 'react-redux'
 
 const useFaceApi = (videoRef, canvasRef) => {
-
-    const [detections, setDetections] = useState({})
+    const detectface = useSelector(state=>state?.faceRecognition)
+    const [detections, setDetections] = useState([])
 
     useEffect(() => {
-        startVideo()
-        videoRef && loadModels()
-    }, [])
+        if(detectface){
+            startVideo()
+            videoRef && loadModels()
+        }else{
+            setDetections(false)
+        }
+    }, [detectface])
 
     // OPEN YOUR FACECAM / WEBCAM 
     const startVideo = () => {
