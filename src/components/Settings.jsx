@@ -34,7 +34,7 @@ export default function Settings() {
          }}>
          <List
             sx={{ width: '100%', maxWidth: 400, backdropFilter: "blur(15px)", borderRadius: '15px', borderStyle: 'double' }}
-            subheader={<ListSubheader sx={{ backgroundColor: 'primary.main' }}> Settings</ListSubheader>}
+            subheader={<ListSubheader sx={{ borderRadius: '15px', backgroundColor: 'secondary.main' }}> Settings</ListSubheader>}
          >
             <ListItem>
                <ListItemButton onClick={() => checked && navigate('/face-recognition')}>

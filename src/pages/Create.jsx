@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Backdrop, CircularProgress, useMediaQuery } from '@mui/material';
+import { Backdrop, CircularProgress, IconButton, useMediaQuery } from '@mui/material';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import useFaceApi from '../hooks/useFaceApi';
 import { useRef } from 'react';
 import { ExpressionToEmoji } from '../helpers/emoji'
+import { Mic } from '@mui/icons-material';
 
 export default function Create() {
   const navigate = useNavigate()
@@ -40,7 +41,7 @@ export default function Create() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        pt: { xs: 14, sm: 20 },
+        pt: { xs: 10, sm: 20 },
         pb: { xs: 8, sm: 12 },
         px: { xs: 5, sm: 0 },
       }}
@@ -54,7 +55,7 @@ export default function Create() {
             display: 'flex',
             flexDirection: { xs: 'column', md: 'row' },
             fontSize: { xs: 51, md: 100 },
-            fontWeight: 340,
+            fontWeight: 540,
             alignSelf: 'center',
             textAlign: 'center',
           }}
@@ -71,14 +72,18 @@ export default function Create() {
             Epic
           </Typography>
         </Typography>
-        <Typography variant="body1" textAlign="center" color="text.secondary">
+        <Typography variant="body1" textAlign="center" color="primary.light">
           Unleash your creativity and craft incredible stories by sharing your thoughts with our story-telling app.
         </Typography>
-        {detections && <Typography variant="h5" textAlign="center" color="text.secondary">
+        {detections && <Typography variant="h5" textAlign="center" color="primary.light">
           feeling {detections?.[0]?.[0]}
           <span dangerouslySetInnerHTML={{ __html: ExpressionToEmoji(detections?.[0]?.[0]) }}></span>
         </Typography>}
-
+        <Stack alignItems={'center'}>
+          <IconButton sx={{ bgcolor: 'secondary.main', height: 65, width: 65 }}>
+            <Mic fontSize='large' />
+          </IconButton>
+        </Stack>
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
           alignSelf="center"

@@ -1,10 +1,14 @@
 import React from 'react'
 import useTextToSpeech from '../hooks/useTestToSpeech'
 import { Box, Button, Container, Grid, Typography } from '@mui/material'
+import { useDispatch } from 'react-redux'
 
 const VoiceSettings = () => {
     const [handlePlay, isPaused, handlePause, handleStop, voice, handleVoiceChange, pitch, handlePitchChange, rate, handleRateChange, volume, handleVolumeChange, updateSettings] = useTextToSpeech(' Once upon a time....')
-
+    const dispatch = useDispatch()
+    const restoreDefaults = () =>{
+        dispatch({ type: 'speech', payload: { voice:0, pitch:1, rate:0.5, volume:1 } })
+    }
     return (
         <Container
             sx={{
@@ -72,12 +76,12 @@ const VoiceSettings = () => {
                     </Grid>
                     <Grid item xs={3}>
                         <Box style={{ height: 50, textAlign: 'center', padding: 5 }}>
-                            <Button variant='contained' onClick={handlePause}>Stop</Button>
+                            <Button variant='contained' onClick={handleStop}>Pause</Button>
                         </Box>
                     </Grid>
                     <Grid item xs={3}>
                         <Box style={{ height: 50, textAlign: 'center', padding: 5 }}>
-                            <Button variant='contained' onClick={handleStop}>Stop</Button>
+                            <Button variant='contained' onClick={restoreDefaults}>Default</Button>
                             </Box>
                     </Grid>
                     <Grid item xs={3}>

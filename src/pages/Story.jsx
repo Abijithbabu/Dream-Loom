@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Box, Container, IconButton, alpha } from '@mui/material'
 import useTextToSpeech from '../hooks/useTestToSpeech'
 import { useSelector } from 'react-redux'
@@ -25,6 +25,17 @@ const Story = () => {
          console.error(error)
       }
    }
+   const containerRef = useRef(null);
+
+   useEffect(() => {
+      const interval = setInterval(() => {
+         containerRef.current.scrollTop = containerRef.current.scrollHeight;
+      }, 1000);
+      return () => {
+         clearInterval(interval)
+      }
+   }, [typed]);
+
 
    return (
       <Container sx={{ px: 3, py: 8 }}>
@@ -49,11 +60,12 @@ const Story = () => {
                   theme.palette.mode === 'light'
                      ? `0 0 12px 8px ${alpha('#9CCCFC', 0.2)}`
                      : `0 0 24px 12px ${alpha('#033363', 0.2)}`,
-                     backdropFilter: "blur(8px)"
+               backdropFilter: "grayscale(48px)",
+               backdropFilter: "blur(8px)",
             })}
          >
-            <Container sx={{ p: 3 ,overflow:'scroll',height:'70vh'}}>
-               <ReactTyped sx={{ p: 5 }} showCursor={false} stopped={true} typedRef={setTyped} strings={[splitIntoParagraphs(story)]} typeSpeed={40} />
+            <Container ref={containerRef} sx={{ p: 3, overflow: 'scroll', height: '70vh' }}>
+               <ReactTyped sx={{ p: 5 }} showCursor={false} stopped={true} typedRef={setTyped} strings={[splitIntoParagraphs(story)]} typeSpeed={60} />
             </Container>
          </Box>
       </Container>
