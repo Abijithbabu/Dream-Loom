@@ -6,10 +6,10 @@ import { shorten } from '../helpers/shorten';
 const CreateStory = ({ item, index }) => {
     const [title, desc] = shorten(item.story)
     return (
-        <Box sx={{ mr: 2 }}>
+        <Box sx={{ mr: 2 ,overflow:'hidden'}}>
             <Box
                 sx={{
-                    backgroundImage: `linear-gradient(to bottom, transparent, #000), url(${item.backgroundImage })`,
+                    backgroundImage: `linear-gradient(to bottom, transparent, #E30049), url(${item.backgroundImage })`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     width: '100%', // Adjusted width to fill the container
