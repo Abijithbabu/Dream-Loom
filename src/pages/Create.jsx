@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Backdrop, CircularProgress, IconButton, useMediaQuery } from '@mui/material';
+import { Backdrop, CircularProgress, useMediaQuery } from '@mui/material';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import useFaceApi from '../hooks/useFaceApi';
 import { useRef } from 'react';
 import { ExpressionToEmoji } from '../helpers/emoji'
-import { Mic } from '@mui/icons-material';
+import SpeechInput from '../components/SpeechInput';
 
 export default function Create() {
   const navigate = useNavigate()
@@ -79,11 +79,7 @@ export default function Create() {
           feeling {detections?.[0]?.[0]}
           <span dangerouslySetInnerHTML={{ __html: ExpressionToEmoji(detections?.[0]?.[0]) }}></span>
         </Typography>}
-        <Stack alignItems={'center'}>
-          <IconButton sx={{ bgcolor: 'secondary.main', height: 65, width: 65 }}>
-            <Mic fontSize='large' />
-          </IconButton>
-        </Stack>
+        <SpeechInput dispatch={setPrompt}/>
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
           alignSelf="center"
