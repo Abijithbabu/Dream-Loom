@@ -40,7 +40,7 @@ function AutoPlay({data=[],handlePlay}) {
 console.log(data);
   return (
     <>
-      <Box sx={{ width: "80vw" }}>
+      <Box sx={{ width: "75vw" }}>
         <Slider {...settings}>
           {data?.map((item, index) => (
               <Box key={index} onClick={()=>handlePlay(item)}>

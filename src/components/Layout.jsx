@@ -3,8 +3,7 @@ import WebLayout from './WebLayout'
 import MobileLayout from './MobileLayout'
 import { Container, Hidden } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-import bgVideo from "../assets/video2.mp4"
-import Img from '../assets/bg2.png'
+import Img from '../assets/bg.png'
 const Layout = () => { 
    return (
       <Container sx={{
@@ -14,7 +13,7 @@ const Layout = () => {
                backgroundPosition: 'center',
                position: "absolute",
                width: "100%",
-               height: "100%",
+               minHeight: "100vh",
                objectFit: "cover",
                zIndex: -1,
             }}>
