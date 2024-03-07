@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 const useFaceApi = (videoRef, canvasRef) => {
    const detectface = useSelector(state => state?.faceRecognition);
-   const [detections, setDetections] = useState([]);
+   const [detections, setDetections] = useState();
    const [start, setStart] = useState(false);
 
    useEffect(() => {
