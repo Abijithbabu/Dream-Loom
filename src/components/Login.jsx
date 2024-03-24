@@ -12,6 +12,10 @@ import { Formik, Form } from "formik";
 import { useNavigate } from "react-router-dom";
 import TextFieldWrapper from "./TextField";
 import ButtonWrapper from "./ButtonWrapper";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import Axios from "../helpers/axios";
+import { Error } from "@mui/icons-material";
 
 // Initial form state for formik
 const INITIAL_FORM_STATE = {
@@ -33,13 +37,26 @@ const FORM_VALIDATION = Yup.object().shape({
 });
 const Login = () => {
   const navigate = useNavigate();
-  const isLoading = false
-  // Submit Handler for Login
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const dispatch = useDispatch()
+  // Submit Handler for Registration
   const submitHandler = async (values) => {
-    console.log(values)
-    navigate('/home')
+    try {
+      console.log(values)
+      setIsLoading(true)
+      await Axios.post('/user/signin', values).then(res => {
+        console.log(res?.data);
+        dispatch({ type: 'user_login', payload: res?.data?.data })
+        navigate("/home");
+      })
+      setIsLoading(false)
+    } catch (err) {
+      setError(err?.response?.data?.message || 'Something went wrong !')
+      setIsLoading(false)
+      console.log(err?.response?.data?.message || err.error || err);
+    }
   };
-
   return (
     <Container>
       <Formik
@@ -87,6 +104,10 @@ const Login = () => {
                 mr: "3em",
               }}
             >
+              {error && <Stack direction="row" justifyContent={'center'} spacing={1}>
+                <Error color="error" />
+                <Typography color="error">{error}</Typography>
+              </Stack>}
               <Stack direction="row" spacing={2}>
                 <Typography
                   variant="body1"

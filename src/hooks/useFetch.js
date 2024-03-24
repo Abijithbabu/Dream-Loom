@@ -20,7 +20,6 @@ const useFetch = (endpoint, query, method = 'GET') => {
             setData(res?.data)
             setIsLoading(false)
         } catch (error) {
-            alert(error)
             setError(error)
         } finally {
             setIsLoading(false)

@@ -20,7 +20,7 @@ export function Reducer(state = initialState, { type, payload }) {
       return {
         ...state,
         data: {
-          isAuthenticated: true, user: payload.user
+          isAuthenticated: true, user: payload
         }
       };
     case 'user_logout':

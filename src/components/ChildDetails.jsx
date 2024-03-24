@@ -19,11 +19,17 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import dayjs from 'dayjs';
+import { useState } from "react";
+import { Error } from "@mui/icons-material";
+import Axios from "../helpers/axios";
+import { useDispatch, useSelector } from "react-redux";
 
 const Page = () => {
+   const user = useSelector(state => state?.data?.user)
    const navigate = useNavigate();
-
-   const isLoading = false
+   const [isLoading, setIsLoading] = useState(false)
+   const [error, setError] = useState('')
+   const dispatch = useDispatch()
    const formik = useFormik({
       initialValues: {
          name: "",
@@ -44,9 +50,16 @@ const Page = () => {
       }),
       onSubmit: async (values, helpers) => {
          try {
-            console.log(values)
-            navigate('/home')
+            setIsLoading(true)
+            await Axios.post(`/user/update/${user?.id}`, values).then(res => {
+               console.log(res.data);
+               dispatch({ type: 'user_login', payload: res?.data?.data })
+               navigate('/home')
+            })
+            setIsLoading(false)
          } catch (err) {
+            setError(err?.response?.data?.message || 'Something went wrong !')
+            setIsLoading(false)
             helpers.setStatus({ success: false });
             helpers.setErrors({ submit: err.message });
             helpers.setSubmitting(false);
@@ -97,7 +110,7 @@ const Page = () => {
                         onChange={formik.handleChange}
                      >
                         <MenuItem value={'male'}>Male</MenuItem>
-                        <MenuItem value={'Female'}>Female</MenuItem>
+                        <MenuItem value={'female'}>Female</MenuItem>
                      </Select>
                      <FormHelperText>{formik.touched.gender && formik.errors.gender}</FormHelperText>
                   </FormControl>
@@ -105,7 +118,11 @@ const Page = () => {
                <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                      <DemoContainer components={['DatePicker']}>
-                        <DatePicker label="Date of Birth" defaultValue={dayjs()} />
+                        <DatePicker
+                           label="Date of Birth"
+                           defaultValue={dayjs().subtract(3, 'year')}
+                           maxDate={dayjs().subtract(3, 'year')}
+                        />
                      </DemoContainer>
                   </LocalizationProvider>
                </Grid>
@@ -129,6 +146,10 @@ const Page = () => {
                      mr: "3em",
                   }}
                >
+                  {error && <Stack direction="row" justifyContent={'center'} spacing={1}>
+                     <Error color="error" />
+                     <Typography color="error">{error}</Typography>
+                  </Stack>}
                   <Stack direction="row" spacing={2}>
                      <Typography
                         variant="body1"

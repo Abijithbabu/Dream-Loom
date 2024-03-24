@@ -10,17 +10,20 @@ import { Formik, Form } from "formik";
 import { useNavigate } from "react-router-dom";
 import TextFieldWrapper from "./TextField";
 import ButtonWrapper from "./ButtonWrapper";
-
+import { useState } from "react";
+import axios from "../helpers/axios";
+import { Error } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
 // Initial form state for formik
 const INITIAL_FORM_STATE = {
-  name: "",
+  username: "",
   email: "",
   password: "",
 };
 
 // Form validation schema using Yup
 const FORM_VALIDATION = Yup.object().shape({
-  name: Yup.string()
+  username: Yup.string()
     .required("Username is Required")
     .min(3, "Name must have atleast 3 characters"),
   email: Yup.string().email("Invalid email").required("Email is Required"),
@@ -36,14 +39,24 @@ const FORM_VALIDATION = Yup.object().shape({
 
 const Register = () => {
   const navigate = useNavigate();
-  const isLoading = false
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const dispatch = useDispatch()
   // Submit Handler for Registration
   const submitHandler = async (values) => {
     try {
       console.log(values)
-      navigate("/set-child-profile");
+      setIsLoading(true)
+      await axios.post('/user/signup', values).then(res => {
+        console.log(res?.data);
+        dispatch({ type: 'user_login', payload: res?.data?.data })
+        navigate("/set-child-profile");
+      })
+      setIsLoading(false)
     } catch (err) {
-      console.log(err?.data?.message || err.error);
+      setError(err?.response?.data?.message || 'Something went wrong !')
+      setIsLoading(false)
+      console.log(err?.response?.data?.message || err.error || err);
     }
   };
 
@@ -58,7 +71,7 @@ const Register = () => {
           <Form>
             <Grid container spacing={1}>
               <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
-                <TextFieldWrapper name="name" label="Username" />
+                <TextFieldWrapper name="username" label="Username" />
               </Grid>
               <Grid item xs={12} sx={{ ml: "3em", mr: "3em" }}>
                 <TextFieldWrapper name="email" label="Email" />
@@ -84,6 +97,10 @@ const Register = () => {
                   mr: "3em",
                 }}
               >
+                {error && <Stack direction="row" justifyContent={'center'} spacing={1}>
+                  <Error color="error" />
+                  <Typography color="error">{error}</Typography>
+                </Stack>}
                 <Stack direction="row" spacing={2}>
                   <Typography
                     variant="body1"

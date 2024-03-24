@@ -15,6 +15,10 @@ export default function Settings() {
    const navigate = useNavigate()
    const dispatch = useDispatch()
    const sm = useMediaQuery((theme) => theme.breakpoints.up('sm'));
+   const handleLogout = () => {
+      dispatch({ type: 'user_logout' })
+      navigate('/login')
+   }
    const handleToggle = (event) => {
       setChecked(event.target.checked);
       dispatch({ type: 'face_recognition', payload: event.target.checked })
@@ -74,7 +78,7 @@ export default function Settings() {
                   <ChevronRight />
                </IconButton>
             </ListItem>
-            <ListItem onClick={() => navigate('/login')}>
+            <ListItem onClick={handleLogout}>
                <ListItemButton>
                   <ListItemIcon>
                      <Logout />
