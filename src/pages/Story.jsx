@@ -1,16 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Box, Container, IconButton, alpha } from '@mui/material'
+import { Backdrop, Box, Button, ButtonGroup, CircularProgress, Container, IconButton, alpha } from '@mui/material'
 import useTextToSpeech from '../hooks/useTestToSpeech'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ReactTyped } from 'react-typed'
 import splitIntoParagraphs from '../helpers/splitIntoPara'
 import { Pause, PlayArrow } from '@mui/icons-material'
+import { useNavigate } from 'react-router-dom'
+import Axios from '../helpers/axios'
 
 const Story = () => {
-   const story = useSelector((state) => state?.story?.story)
+   const data = useSelector((state) => state?.story)
+   const user = useSelector((state) => state?.data?.user)
+   const dispatch = useDispatch()
+   const [isLoading, setIsLoading] = useState(false)
    const [started, setStarted] = useState(false)
    const [typed, setTyped] = React.useState()
-   const [handlePlay, isPaused, handlePause] = useTextToSpeech(story)
+   const [handlePlay, isPaused, handlePause] = useTextToSpeech(data?.story)
+   const navigate = useNavigate()
    function start() {
       try {
          if (!started) {
@@ -36,9 +42,27 @@ const Story = () => {
       }
    }, [typed]);
 
-
+   const handleDiscard = async () => {
+      setIsLoading("Discarding...")
+      await Axios.get(`/story/delete/${data?.id}`)
+      dispatch({ type: 'story', payload: null })
+      setIsLoading(false)
+      navigate('/create')
+   }
+   const handleSave = async () => {
+      setIsLoading("Saving...")
+      await Axios.get(`/chat/mcq/${data?.id}`).then(res => {
+         console.log(res);
+         dispatch({ type: 'story', payload: res?.data })
+      })
+      setIsLoading(false)
+   }
+   const handleQuestionare = async () => {
+      setIsLoading("Preparing Questionare...")
+      navigate('/questionare')
+   }
    return (
-      <Container sx={{ px: 3, py: 8 }}>
+      <Container sx={{ px: 3, py: 7 }}>
          <IconButton aria-label="play/pause" onClick={start} sx={{ bgcolor: 'primary.main' }}>
             {started ? isPaused ? <PlayArrow sx={{ height: 25, width: 25 }} /> : <Pause sx={{ height: 25, width: 25 }} /> : <PlayArrow sx={{ height: 25, width: 25 }} />}
             &nbsp;&nbsp;{started ? isPaused ? "Play" : "Pause" : "Play"}
@@ -65,9 +89,25 @@ const Story = () => {
             })}
          >
             <Container ref={containerRef} sx={{ p: 3, overflow: 'scroll', height: '70vh' }}>
-               <ReactTyped sx={{ p: 5 }} showCursor={false} stopped={true} typedRef={setTyped} strings={[splitIntoParagraphs(story)]} typeSpeed={60} />
+               <ReactTyped sx={{ p: 5 }} showCursor={false} stopped={true} typedRef={setTyped} strings={[splitIntoParagraphs(data?.story)]} typeSpeed={60} />
             </Container>
+            <ButtonGroup variant="contained" aria-label="Basic button group" fullWidth>
+               {data?.mcq ?
+                  <Button onClick={handleQuestionare}>Start Quiz</Button> :
+                  data?.author?.id === user?.id &&
+                  <>
+                     <Button onClick={handleDiscard}>discard</Button>
+                     <Button onClick={handleSave}>save & continue</Button>
+                  </>}
+            </ButtonGroup>
          </Box>
+         <Backdrop
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={isLoading}
+            onClick={() => { }}
+         >
+            <CircularProgress color="inherit" />&nbsp;&nbsp;{isLoading}
+         </Backdrop>
       </Container>
    )
 }

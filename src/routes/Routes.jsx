@@ -22,12 +22,10 @@ const Router = () => {
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/set-child-profile" element={<ChildProfile />} />
         </Route>
       </Route>
       <Route element={<PublicProtected />} >
-        <Route element={<AuthLayout />}>
-          <Route path="/set-child-profile" element={<ChildProfile />} />
-        </Route>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />

@@ -49,7 +49,7 @@ const Register = () => {
       setIsLoading(true)
       await axios.post('/user/signup', values).then(res => {
         console.log(res?.data);
-        dispatch({ type: 'user_login', payload: res?.data?.data })
+        dispatch({ type: 'user_signup', payload: res?.data?.data })
         navigate("/set-child-profile");
       })
       setIsLoading(false)

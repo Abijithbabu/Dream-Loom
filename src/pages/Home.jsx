@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux'
 const Home = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { data, isLoading, error, fetchData } = useFetch('/chat/')
+  const { data, isLoading, error, fetchData } = useFetch('/story/')
   useEffect(() => {
     fetchData()
   }, [])
