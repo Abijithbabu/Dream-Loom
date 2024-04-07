@@ -1,7 +1,7 @@
 
 const initialState = {
   data: {
-    isAuthenticated: true,
+    isAuthenticated: false,
     user: null,
   },
   story: null,
@@ -20,7 +20,14 @@ export function Reducer(state = initialState, { type, payload }) {
       return {
         ...state,
         data: {
-          isAuthenticated: true, user: payload.user
+          isAuthenticated: true, user: payload
+        }
+      };
+    case 'user_signup':
+      return {
+        ...state,
+        data: {
+          isAuthenticated: false, user: payload
         }
       };
     case 'user_logout':

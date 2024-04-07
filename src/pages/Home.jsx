@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux'
 const Home = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { data, isLoading, error, fetchData } = useFetch('/chat/')
+  const { data, isLoading, error, fetchData } = useFetch('/story/')
   useEffect(() => {
     fetchData()
   }, [])
@@ -19,7 +19,7 @@ const Home = () => {
     navigate('/recite')
   }
   return (
-    <Container sx={{ overflowX: '', px: 3, py: 5 }} boxShadow={3}>
+    <Container sx={{ overflowX: 'scroll', width: "80vw", py: 5 }} boxShadow={3}>
       <Typography variant='h4' sx={{ paddingBottom: '10px' }} fontWeight={700}>
         Welcome User
       </Typography>

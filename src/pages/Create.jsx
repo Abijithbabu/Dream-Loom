@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Backdrop, CircularProgress, IconButton, useMediaQuery } from '@mui/material';
+import { Backdrop, CircularProgress, useMediaQuery } from '@mui/material';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
@@ -7,13 +7,14 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useFaceApi from '../hooks/useFaceApi';
 import { useRef } from 'react';
 import { ExpressionToEmoji } from '../helpers/emoji'
-import { Mic } from '@mui/icons-material';
+import SpeechInput from '../components/SpeechInput';
 
 export default function Create() {
+  const user = useSelector(state => state?.data?.user)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const videoRef = React.useRef()
@@ -21,7 +22,7 @@ export default function Create() {
   const detections = useFaceApi(videoRef, canvasRef)
   const sm = useMediaQuery((theme) => theme.breakpoints.up('sm'));
   const [prompt, setPrompt] = React.useState('')
-  const { data, isLoading, error, fetchData } = useFetch('/chat/', { prompt }, 'POST')
+  const { data, isLoading, error, fetchData } = useFetch('/chat/', { author: user?.id, prompt }, 'POST')
   const handleChange = (e) => setPrompt(e.target.value)
   const handleSubmit = () => {
     if (prompt.length > 9) {
@@ -79,11 +80,7 @@ export default function Create() {
           feeling {detections?.[0]?.[0]}
           <span dangerouslySetInnerHTML={{ __html: ExpressionToEmoji(detections?.[0]?.[0]) }}></span>
         </Typography>}
-        <Stack alignItems={'center'}>
-          <IconButton sx={{ bgcolor: 'secondary.main', height: 65, width: 65 }}>
-            <Mic fontSize='large' />
-          </IconButton>
-        </Stack>
+        <SpeechInput dispatch={setPrompt} />
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
           alignSelf="center"

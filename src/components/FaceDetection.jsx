@@ -17,7 +17,7 @@ const FaceDetection = () => {
           pt: sm ? 22 : 22,
           height: 510,
           borderRadius: '10px',
-          zIndex: 1000,
+          // zIndex: 1000,
         }}>
 
         <div className="myapp" >
@@ -42,7 +42,7 @@ const FaceDetection = () => {
           my: 8,
           p: 3,
           minHeight: '220px',
-          minWidth: 400,
+          minWidth: '85vw',
           borderRadius: '20px',
           borderStyle: 'double'
         }}>

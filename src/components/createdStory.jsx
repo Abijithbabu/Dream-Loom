@@ -6,7 +6,7 @@ import { shorten } from '../helpers/shorten';
 const CreateStory = ({ item, index }) => {
     const [title, desc] = shorten(item.story)
     return (
-        <Box sx={{ mr: 2 ,overflow:'hidden'}}>
+        <Box sx={{ overflow:'hidden'}}>
             <Box
                 sx={{
                     backgroundImage: `linear-gradient(to bottom, transparent, #E30049), url(${item.backgroundImage })`,
@@ -19,7 +19,7 @@ const CreateStory = ({ item, index }) => {
                     p: 4,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    marginRight: '100px',
+                    // marginRight: '100px',
                 }}
             >
                 <Typography pb={3}></Typography>
