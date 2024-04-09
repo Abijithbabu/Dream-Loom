@@ -37,14 +37,13 @@ function AutoPlay({data=[],handlePlay}) {
       />
     );
   }
-console.log(data);
   return (
     <>
       <Box sx={{ width: "75vw" }}>
         <Slider {...settings}>
           {data?.map((item, index) => (
-              <Box key={index} onClick={()=>handlePlay(item)}>
-              <CreateStory  key={index} item={item} index={index} />
+              <Box key={index} >
+              <CreateStory  key={index} item={item} handlePlay={()=>handlePlay(item)}/>
             </Box>
           ))}
           

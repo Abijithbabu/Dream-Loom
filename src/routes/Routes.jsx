@@ -14,6 +14,8 @@ import VoiceSettings from '../components/VoiceSettings'
 import Mcq from '../pages/Mcq'
 import AuthRoutes from './AuthProtected'
 import PublicProtected from './PublicProtected'
+import Library from '../pages/Library'
+import Favorites from '../pages/Favorites'
 
 const Router = () => {
   return (
@@ -29,9 +31,9 @@ const Router = () => {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
-          <Route path="/favorites" element={<Home />} />
+          <Route path="/favorites" element={<Favorites />} />
           <Route path="/create" element={<Create />} />
-          <Route path="/library" element={<Home />} />
+          <Route path="/library" element={<Library />} />
           <Route path="/face-recognition" element={<FaceDetection />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/voice-settings" element={<VoiceSettings />} />
