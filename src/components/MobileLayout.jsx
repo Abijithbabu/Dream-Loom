@@ -87,7 +87,7 @@ export default function BottomAppBar({ children }) {
                   }}
                >
                   {navItems.map((x, index) => (
-                     <BottomNavigationAction sx={{ borderRadius: '32px 32px 32px 32px', backgroundColor: 'transparent' }} key={index} label={x.name} icon={x.icon} />
+                     <BottomNavigationAction id={`step-${index}`} sx={{ borderRadius: '32px 32px 32px 32px', backgroundColor: 'transparent' }} key={index} label={x.name} icon={x.icon} />
                   ))}
                </BottomNavigation>
             </Paper>
