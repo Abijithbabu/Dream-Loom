@@ -90,10 +90,10 @@ export default function Create() {
         >
           <TextField
             sx={{ backdropFilter: "blur(5px)", }}
-            id="outlined-basic"
             hiddenLabel
             size="small"
             rows={5}
+            id="step-5"
             multiline
             variant="outlined"
             value={prompt}

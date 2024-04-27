@@ -54,6 +54,7 @@ const Page = () => {
             await Axios.post(`/user/update/${user?.id}`, values).then(res => {
                console.log(res.data);
                dispatch({ type: 'user_login', payload: res?.data?.data })
+               dispatch({ type: 'help', payload: true })
                navigate('/home')
             })
             setIsLoading(false)
