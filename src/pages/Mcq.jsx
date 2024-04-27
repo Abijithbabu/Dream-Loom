@@ -1,9 +1,10 @@
 import { Backdrop, Box, Button, CircularProgress, Container, Grid, Paper, Typography, styled } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Result from '../components/Result';
 import { useSelector } from 'react-redux';
 import parseQuestions from '../helpers/parseQuestions';
 import Axios from '../helpers/axios';
+import useCapture from '../hooks/useCapture';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -21,7 +22,11 @@ const Mcq = () => {
   const [ans, setAns] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [clicked, setClicked] = useState(false)
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
+  const [handleCapture, capturedImage] = useCapture(videoRef, canvasRef)
   const handleClick = (ans) => {
+    handleCapture()
     if (!clicked) {
       setClicked(true)
       setAns(prev => {
@@ -66,9 +71,8 @@ const Mcq = () => {
     checkFeedback()
   }, [])
   const createFeedback = async () => {
-    const feedback = { storyId: data.id, userId: user.id, score, ans }
+    const feedback = { storyId: data.id, userId: user.id, score, ans, image: capturedImage }
     const res = await Axios.post(`/story/feedback`, feedback).then(res => console.log(res)).catch(err => console.log('error:', err))
-    console.log(res);
   }
   return (
     <Container sx={{ px: 3, py: 7 }}>
@@ -104,6 +108,10 @@ const Mcq = () => {
         </Box>
       ))}
       {question === 10 && <Result score={score} />}
+      <div>
+        <video ref={videoRef} style={{ display: 'none' }}></video>
+        <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
+      </div>
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={isLoading}
