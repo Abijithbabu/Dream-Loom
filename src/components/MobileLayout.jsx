@@ -13,7 +13,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Favorite, Help, Home, Settings, ViewList } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { IconButton } from '@mui/material';
-import Img from '../assets/navBar.png'
+import Img from '../assets/logo.png'
 import { useDispatch, useSelector } from 'react-redux';
 
 const StyledFab = styled(Fab)({
@@ -51,6 +51,7 @@ export default function BottomAppBar({ children }) {
                   backgroundRepeat: 'no-repeat',
                   backgroundPosition: 'center',
                }}>
+               {/* <img src={Img} alt='hi'/> */}
                   <IconButton onClick={toggleHelp} sx={{ marginLeft:'auto' }}><Help /></IconButton>
                </Toolbar>
             </AppBar>
