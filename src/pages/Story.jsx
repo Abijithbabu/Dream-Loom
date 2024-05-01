@@ -44,10 +44,12 @@ const Story = () => {
 
    const handleDiscard = async () => {
       setIsLoading("Discarding...")
-      await Axios.get(`/story/delete/${data?.id}`)
-      dispatch({ type: 'story', payload: null })
+      await Axios.get(`/chat/mcq/${data?.id}`).then(res => {
+         const story = res?.data
+         story.delete = true
+         dispatch({ type: 'story', payload: story })
+      })
       setIsLoading(false)
-      navigate('/create')
    }
    const handleSave = async () => {
       setIsLoading("Saving...")

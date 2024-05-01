@@ -5,13 +5,15 @@ const initialState = {
     user: null,
   },
   story: null,
+  likes: [],
   speech: {
     voice: 0,
     pitch: 1,
-    rate: 1,
+    rate: 0.5,
     volume: 1,
   },
-  faceRecognition: true
+  faceRecognition: true,
+  help:false
 }
 
 export function Reducer(state = initialState, { type, payload }) {
@@ -42,6 +44,11 @@ export function Reducer(state = initialState, { type, payload }) {
         ...state,
         story: payload
       };
+    case 'likes':
+      return {
+        ...state,
+        likes: payload
+      };
     case 'speech':
       return {
         ...state,
@@ -56,6 +63,11 @@ export function Reducer(state = initialState, { type, payload }) {
       return {
         ...state,
         faceRecognition: payload
+      };
+    case 'help':
+      return {
+        ...state,
+        help: payload
       };
     default:
       return state;

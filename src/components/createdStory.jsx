@@ -2,8 +2,9 @@ import React from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { shorten } from '../helpers/shorten';
+import LikeButton from './LikeButton';
 
-const CreateStory = ({ item, index }) => {
+const CreateStory = ({ item, handlePlay }) => {
     const [title, desc] = shorten(item.story)
     return (
         <Box sx={{ overflow:'hidden'}}>
@@ -23,9 +24,10 @@ const CreateStory = ({ item, index }) => {
                 }}
             >
                 <Typography pb={3}></Typography>
-                <IconButton aria-label="play/pause" sx={{ bgcolor: 'primary.main' }}>
+                <IconButton aria-label="play/pause" sx={{ bgcolor: 'primary.main' }} onClick={handlePlay}>
                     <PlayArrowIcon sx={{ height: 25, width: 25 }} />
                 </IconButton>
+                <LikeButton storyId={item.id} />
                 <Typography pt={1} variant="h5">
                     {title}
                 </Typography>

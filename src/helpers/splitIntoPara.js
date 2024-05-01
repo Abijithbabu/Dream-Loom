@@ -1,4 +1,4 @@
-export default function splitIntoParagraphs(inputString) {
+export default function splitIntoParagraphs(inputString='') {
     let title = inputString.trim();
     let desc = '';
 

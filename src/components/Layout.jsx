@@ -3,7 +3,7 @@ import WebLayout from './WebLayout'
 import MobileLayout from './MobileLayout'
 import { Container, Hidden } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-import Img from '../assets/bg.png'
+import Img from '../assets/bg.jpeg'
 const Layout = () => { 
    return (
       <Container sx={{

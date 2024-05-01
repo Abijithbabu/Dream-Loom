@@ -7,6 +7,7 @@ import {
    useTheme,
 } from "@mui/material";
 import bgVideo from "../assets/video1.mp4"
+import Img from '../assets/bg.jpeg'
 
 const AuthLayout = () => {
 
@@ -24,11 +25,19 @@ const AuthLayout = () => {
       <>
          <div
             style={{
-               backgroundSize: "cover",
+               backgroundImage: `url(${Img})`,
+               backgroundSize: 'cover',
+               backgroundRepeat: 'no-repeat',
+               backgroundPosition: 'center',
+               position: "absolute",
+               width: "100%",
+               minHeight: "100vh",
+               objectFit: "cover",
+               zIndex: -1,
                color: "#f5f5f5",
             }}
          >
-            <video
+            {/* <video
                autoPlay
                loop
                muted
@@ -41,7 +50,7 @@ const AuthLayout = () => {
                }}
             >
                <source src={bgVideo} type="video/mp4" />
-            </video>
+            </video> */}
 
             <Box
                sx={{

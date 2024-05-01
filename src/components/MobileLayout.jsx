@@ -10,10 +10,11 @@ import Fab from '@mui/material/Fab';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import AddIcon from '@mui/icons-material/Add';
-import { Favorite, Home, Settings, ViewList } from '@mui/icons-material';
+import { Favorite, Help, Home, Settings, ViewList } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { IconButton } from '@mui/material';
-import Img from '../assets/navBar.png'
+import Img from '../assets/logo.png'
+import { useDispatch, useSelector } from 'react-redux';
 
 const StyledFab = styled(Fab)({
    position: 'absolute',
@@ -26,14 +27,19 @@ const StyledFab = styled(Fab)({
 
 export default function BottomAppBar({ children }) {
    const navItems = [
-      { icon: <IconButton sx={{ bgcolor: 'secondary.main' }}><Home /></IconButton>, path: '/home' },
-      { icon: <IconButton sx={{ bgcolor: 'secondary.main' }}><Favorite /></IconButton>, path: '/favorites' },
-      { icon: <StyledFab sx={{ borderColor: 'secondary.main', borderWidth: '33px' }}><AddIcon /></StyledFab>, path: '/create' },
-      { icon: <IconButton sx={{ bgcolor: 'secondary.main' }}><ViewList /></IconButton>, path: '/library' },
-      { icon: <IconButton sx={{ bgcolor: 'secondary.main' }}><Settings /></IconButton>, path: '/settings' },
+      { icon: <IconButton sx={{ bgcolor: 'secondary.main' }}><Home /></IconButton>,id:`step-1`, path: '/home' },
+      { icon: <IconButton sx={{ bgcolor: 'secondary.main' }}><Favorite /></IconButton>,id:`step-2`, path: '/favorites' },
+      { icon: <StyledFab sx={{ borderColor: 'secondary.main', borderWidth: '33px' }}><AddIcon /></StyledFab>,id:`step-4`, path: '/create' },
+      { icon: <IconButton sx={{ bgcolor: 'secondary.main' }}><ViewList /></IconButton>,id:`step-3`, path: '/library' },
+      { icon: <IconButton sx={{ bgcolor: 'secondary.main' }}><Settings /></IconButton>,id:`step-6`, path: '/settings' },
    ];
    const [value, setValue] = React.useState(0);
    const navigate = useNavigate();
+   const dispatch = useDispatch()
+   const payload = !useSelector(state=>state?.help)
+   const toggleHelp = () =>{
+      dispatch({ type: 'help', payload })
+   }
    return (
       <React.Fragment>
          <Box sx={{ display: 'flex' }}>
@@ -45,9 +51,8 @@ export default function BottomAppBar({ children }) {
                   backgroundRepeat: 'no-repeat',
                   backgroundPosition: 'center',
                }}>
-                  <Typography variant="h6" noWrap component="div">
-                     
-                  </Typography>
+               {/* <img src={Img} alt='hi'/> */}
+                  <IconButton onClick={toggleHelp} sx={{ marginLeft:'auto' }}><Help /></IconButton>
                </Toolbar>
             </AppBar>
             <Box sx={{ flexGrow: 1, py: 3 }}>
@@ -87,7 +92,7 @@ export default function BottomAppBar({ children }) {
                   }}
                >
                   {navItems.map((x, index) => (
-                     <BottomNavigationAction sx={{ borderRadius: '32px 32px 32px 32px', backgroundColor: 'transparent' }} key={index} label={x.name} icon={x.icon} />
+                     <BottomNavigationAction id={x.id} sx={{ borderRadius: '32px 32px 32px 32px', backgroundColor: 'transparent' }} key={index} label={x.name} icon={x.icon} />
                   ))}
                </BottomNavigation>
             </Paper>

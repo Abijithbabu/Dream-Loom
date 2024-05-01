@@ -1,9 +1,10 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { HashRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Routes from './routes/Routes';
 import './App.css';
+import Joyride from "react-joyride";
+import { steps } from './constants/steps';
 
 const theme = createTheme({
   palette: {
@@ -26,13 +27,24 @@ const theme = createTheme({
 });
 
 export default function App() {
+  const help = useSelector(state => state?.help)
+  const navigate = useNavigate()
+  const handleSteps = e => {
+    if (e?.index === 5) navigate('/create')
+  }
   return (
     <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <HashRouter>
-          <Routes />
-        </HashRouter>
-      </Provider>
+      <Joyride
+        continuous
+        callback={handleSteps}
+        run={help ?? false}
+        steps={steps}
+        hideCloseButton
+        scrollToFirstStep
+        showSkipButton
+        showProgress
+      />
+      <Routes />
     </ThemeProvider>
   );
 }

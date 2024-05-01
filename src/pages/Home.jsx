@@ -30,7 +30,7 @@ const Home = () => {
         }
         <Typography variant="h" fontWeight="light" component="h3" sx={{ marginTop: "10px" }}>Explore</Typography>
         {isLoading ? <CircularProgress color="inherit" /> :
-          <AutoPlay data={data} handlePlay={handlePlay} />
+          <AutoPlay data={data?.slice()?.reverse()} handlePlay={handlePlay} /> 
         }
       </Container>
     </Container>
