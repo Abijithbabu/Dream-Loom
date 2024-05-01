@@ -72,7 +72,11 @@ const Mcq = () => {
   }, [])
   const createFeedback = async () => {
     const feedback = { storyId: data.id, userId: user.id, score, ans, image: capturedImage }
-    const res = await Axios.post(`/story/feedback`, feedback).then(res => console.log(res)).catch(err => console.log('error:', err))
+    const res = await Axios.post(`/story/feedback`, feedback).then(res => {
+      if(data?.delete){
+       Axios.get(`/story/delete/${data?.id}`)
+      }
+    }).catch(err => console.log('error:', err))
   }
   return (
     <Container sx={{ px: 3, py: 7 }}>
